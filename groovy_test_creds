@@ -49,3 +49,26 @@ pipeline {
     }
   }
 }
+
+
+-----------------------------------------------
+pipeline {
+  agent none
+  stages {
+    stage('Use Credentials') {
+      steps {
+        script {
+          // Using credentials
+          withCredentials([usernamePassword(credentialsId: 'my-cred-id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            // Iterate over each character of the password and print it
+            env.PASSWORD.each { char ->
+              echo "${char}"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
