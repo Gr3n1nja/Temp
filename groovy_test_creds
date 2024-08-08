@@ -1,0 +1,30 @@
+import com.cloudbees.plugins.credentials.CredentialsProvider
+import com.cloudbees.plugins.credentials.domains.DomainRequirement
+import com.cloudbees.plugins.credentials.common.UsernamePasswordCredentials
+import org.jenkinsci.plugins.plaincredentials.StringCredentials
+
+def hudson = hudson.model.Hudson.instance
+def credentialsList = CredentialsProvider.lookupCredentials(
+    com.cloudbees.plugins.credentials.Credentials.class,
+    hudson,
+    null,
+    (DomainRequirement) null
+)
+
+def credsArray = []
+
+credentialsList.each { creds ->
+    def entry = [:]
+    if (creds instanceof UsernamePasswordCredentials) {
+        entry.put("Username", creds.username)
+        entry.put("Password", creds.password.plainText)  // Note: plainText might not be directly accessible depending on the credentials type
+    } else if (creds instanceof StringCredentials) {
+        entry.put("Secret", creds.secret.plainText)
+    } else {
+        entry.put("ID", creds.id)
+        entry.put("Description", creds.description)
+    }
+    credsArray << entry
+}
+
+println(credsArray)
