@@ -23,3 +23,29 @@ pipeline {
     }
   }
 }
+
+----------------------------------------
+
+pipeline {
+  agent none
+  stages {
+    stage('Use Credentials') {
+      steps {
+        script {
+          // Initialize the array within the script block
+          def credentialsDetails = []
+          
+          // Using credentials
+          withCredentials([usernamePassword(credentialsId: 'my-cred-id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            credentialsDetails.add([username: env.USERNAME, password: 'Secure']) // Collecting data
+            
+            // Iterating over the array to print details
+            for (cred in credentialsDetails) {
+              echo "Username: ${cred['username']}, Password: ${cred['password']}"
+            }
+          }
+        }
+      }
+    }
+  }
+}
