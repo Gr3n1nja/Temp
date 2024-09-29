@@ -1,0 +1,92 @@
+pipeline {
+   agent any
+   environment {
+       CRED_ID = 'VROPS-CMPUSER'
+   }
+   stages {
+       stage('Read Credentials') {
+           steps {
+               script {
+                   withCredentials([usernamePassword(credentialsId: env.CRED_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                       def usernameArray = []
+                       def passwordArray = []
+                       // Populate username array
+                       for (int i = 0; i < USERNAME.length(); i++) {
+                           usernameArray.add(USERNAME[i])
+                       }
+                       // Populate password array
+                       for (int i = 0; i < PASSWORD.length(); i++) {
+                           passwordArray.add(PASSWORD[i])
+                       }
+                       // Print arrays
+                       echo "Username array: ${usernameArray}"
+                       echo "Password array: ${passwordArray}"
+                   }
+               }
+           }
+       }
+   }
+}
+
+=====================================================================================================
+
+pipeline {
+   agent any
+   environment {
+       SECRET_ID = 'VAULT-ADMIN-TOKEN'
+   }
+   stages {
+       stage('Read Secret') {
+           steps {
+               script {
+                   withCredentials([string(credentialsId: env.SECRET_ID, variable: 'SECRET_TEXT')]) {
+                       def secretArray = []
+                       // Populate secret array
+                       for (int i = 0; i < SECRET_TEXT.length(); i++) {
+                           secretArray.add(SECRET_TEXT[i])
+                       }
+                       // Print array
+                       echo "Secret text array: ${secretArray}"
+                       // Print array length (safer alternative)
+                       echo "Secret text length: ${secretArray.size()}"
+                   }
+               }
+           }
+       }
+   }
+}
+
+=====================================================================================================
+
+pipeline {
+   agent any
+   environment {
+       SSH_CRED_ID = 'SSH-CREDENTIALS-ID'
+   }
+   stages {
+       stage('Read SSH Credentials') {
+           steps {
+               script {
+                   withCredentials([sshUserPrivateKey(credentialsId: env.SSH_CRED_ID, keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USERNAME', passphraseVariable: 'PASSPHRASE')]) {
+                       def usernameArray = []
+                       def sshKeyArray = []
+
+                       // Populate SSH username array
+                       for (int i = 0; i < SSH_USERNAME.length(); i++) {
+                           usernameArray.add(SSH_USERNAME[i])
+                       }
+
+                       // Populate SSH private key array
+                       for (int i = 0; i < SSH_KEY.length(); i++) {
+                           sshKeyArray.add(SSH_KEY[i])
+                       }
+
+                       // Print arrays
+                       echo "SSH Username array: ${usernameArray}"
+                       echo "SSH Key array: ${sshKeyArray}"
+                   }
+               }
+           }
+       }
+   }
+}
