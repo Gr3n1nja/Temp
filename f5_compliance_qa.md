@@ -55,3 +55,17 @@
 - **Phase 2:** Dashboard operational for assessors and ops teams
 - **Coverage:** 1000+ ASM policies under continuous monitoring
 - **Status:** Production ready, delivering immediate value
+
+
+| **Aspect**              | **Before (Manual Process)**                  | **After (Automated Audit + Dashboard)**                        |
+| ----------------------- | -------------------------------------------- | -------------------------------------------------------------- |
+| **Audit Speed**         | 1 F5 server in 3 months                      | 10 F5 servers in 48 hours                                      |
+| **Accuracy**            | Manual, error-prone inspections              | Fully automated, consistent checks                             |
+| **Scalability**         | Not scalable—high effort per device          | Multi-server coverage, parallel processing                     |
+| **Compliance Tracking** | Ad-hoc, spreadsheet-based, disconnected      | Real-time dashboard with compliance drift alerts               |
+| **Visibility**          | Limited, fragmented views                    | Centralized visibility across policies, servers, and controls  |
+| **Drill-down Analysis** | Not available                                | Click-through views down to specific policy or setting         |
+| **Audit Framework**     | No standard structure                        | Unified, standardized, repeatable framework                    |
+| **Security Baseline**   | No mapping to policy baselines               | Gaps flagged based on pre-defined security baselines           |
+| **Cost / Resources**    | High audit effort, requires manual reviewers | Minimal manual effort, reusable tool, supports lean operations |
+
